@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Takshak</string>
+    <string name="title_activity_event_pager">Events</string>
+    <string name="title_activity_location">Location</string>
+    <string name="title_activity_cards_details">Details</string>
+    <string name="title_activity_news_feed">News Feed</string>
+    <string name="title_activity_about">About</string>
+    <string name="title_activity_showcase">Show Case Events</string>
+    <string name="menu_about">About Us</string>
+    <string name="menu_swipe">Swipe for details</string>
+    <string name="menu_swipe_condensed">Swipe for details</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="mace">MACE</string>
+    <string name="mace_des">\nKothamangalam, a place better known as \"the gateway to western Ghats\" is not only a land known for fables and churches. This place owns one of the best engineering colleges in the state, the Mar Athanasius College of Engineering(MACE).The college for the past 52 years has constantly produced renowned personalities in the field of engineering. The first ever Christian management college in Asia, and the first college to have enrolled in the Mahatma Gandhi University, with over six branches of engineering and five post graduate cources, 3000 students presently being trained and over 12,000 notable alumina, MACE Proudly Holds the records and continues to make new ones.\n\nMACE also hosts a lush green ambience beautified by the symphonies of Mozart and Beethoven from the garden speakers that infuses a calm ,serene and refreshing environment. The collage promotes a wide variety of activities, be it educational or cultural and the different clubs play an important role in bringing out the best in the students.Every bit of information that a student could possibly wish for, is provided by the department libraries, state of the art workshops, I.T.centre and the central library that houses a mammoth collection of journals and papers, thus it could be said that life at MACE is truly a dream college life for every student.\n\n</string>
+    <string name="t_title">TAKSHAK</string>
+    <string name="takshak_des">\nEvery year, since its inception in the year 2009, TAKSHAK has become one of the most awaited technical festivals in the country. Last year MACE, due to Takshak, had experienced a lot of technical and intellectual brilliance. Not only did Takshak put together a jaw dropping show, but it also encouraged MACEians and its guests to stretch beyond their limits by making an attempt for the Guinness world record and also by giving them an experience of para-sailing.\n\nThe tradition continues and the awaited TAKSHAK is presented before you. The annual tech festival of MACE, this year takshak \'13 will be held on September 27, 28 2013 with the theme \'Shikshan he savu\'. TAKSHAK 13 will put together a venue, an arena where the best of techno savy students across te country will come face to face to showcase their excellence in various fields of science, technology and engineering. The main attraction of TAKSHAK is an all kerala quiz competition NOZIONE conducted for students of plus two level and an autoshow NITROZ REFUELED. TAKSHAK presents before you the various technical innovations in different engineering fields, a never before seen experience of an unbelievable world, where innovation meets creation.</string>
+    <string name="home_title">Takshak \'13</string>
+    <string name="home_motto">Education for all</string>
+    <string name="takshak">takshak 2013</string>
+
+    <string name="blank"> </string>
+    <string name="title_activity_credits">Credits</string>
+</resources>

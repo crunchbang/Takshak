@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="menu">
+        <item>Events</item>
+        <item>Workshop</item>
+        <item>Location</item>
+        <item>About</item>
+    </string-array>
+</resources>

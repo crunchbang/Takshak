@@ -8,7 +8,7 @@ The official android app for Takshak 2013
 * Athul Suresh - athulsuresh@hotmail.com
 
  with help & support from 
-* Johns Mathew V
+* Johns Mathew 
 * Eldhose K Shibu
 * Sharun S Thazhackal
 * Shinu Ignasious

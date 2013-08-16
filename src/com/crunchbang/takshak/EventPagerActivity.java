@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.viewpagerindicator.TabPageIndicator;
@@ -17,6 +18,16 @@ public class EventPagerActivity extends SherlockFragmentActivity {
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.event_pager_layout);
+
+		boolean firstdb = getSharedPreferences("DB_PREF", MODE_PRIVATE)
+				.getBoolean("firstdb", true);
+		if (firstdb) {
+			Toast.makeText(this, "Initializing Database",
+					Toast.LENGTH_LONG).show();
+			getSharedPreferences("DB_PREF", MODE_PRIVATE).edit()
+					.putBoolean("firstdb", false).commit();
+		}
+
 		ViewPager pager = (ViewPager) findViewById(R.id.pager);
 		pager.setAdapter(new DetailsAdapter(this, getSupportFragmentManager()));
 

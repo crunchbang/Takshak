@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.v4.widget.CursorAdapter;
 import android.view.View;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockListActivity;
 import com.crunchbang.takshak.cardview.CardsDetailsActivity;
@@ -20,7 +19,7 @@ public class ShowCaseActivity extends SherlockListActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.showcase_list_activity);
+		setContentView(R.layout.list_layout);
 
 		dbHelper = new DataBaseHelper(this.getApplicationContext());
 		new LoadCursorTask().execute();
@@ -33,7 +32,6 @@ public class ShowCaseActivity extends SherlockListActivity {
 		Cursor itemCursor = (Cursor) getListAdapter().getItem(position);
 		String title = itemCursor.getString(itemCursor
 				.getColumnIndex(DataBaseHelper.KEY_TITLE));
-		Toast.makeText(this, title, Toast.LENGTH_SHORT).show();
 		Bundle args = new Bundle();
 		args.putString(CardsDetailsActivity.ITEM, title);
 

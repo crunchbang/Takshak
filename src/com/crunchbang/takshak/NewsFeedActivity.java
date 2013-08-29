@@ -7,6 +7,8 @@ import android.webkit.WebSettings;
 import android.webkit.WebSettings.RenderPriority;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import de.keyboardsurfer.android.widget.crouton.Crouton;
+import de.keyboardsurfer.android.widget.crouton.Style;
 
 public class NewsFeedActivity extends Activity {
 
@@ -29,6 +31,11 @@ public class NewsFeedActivity extends Activity {
 		mWebview.loadUrl("http://takshak13.com/news");
 	}
 
+	void croutonAlert() {
+		Crouton.makeText(this, "Please check your internet connection",
+				Style.ALERT).show();
+	}
+
 	private class MyWebViewClient extends WebViewClient {
 		@Override
 		public boolean shouldOverrideUrlLoading(WebView view, String url) {
@@ -37,6 +44,14 @@ public class NewsFeedActivity extends Activity {
 				mProgressDialog.show();
 			}
 			return true;
+		}
+
+		@Override
+		public void onReceivedError(WebView view, int errorCode,
+				String description, String failingUrl) {
+			setContentView(R.layout.news_error);
+			croutonAlert();
+
 		}
 
 		@Override

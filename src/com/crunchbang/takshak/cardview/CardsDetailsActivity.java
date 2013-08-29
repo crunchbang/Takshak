@@ -7,12 +7,14 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockActivity;
 import com.crunchbang.takshak.R;
 import com.crunchbang.takshak.dbhelper.DataBaseHelper;
 import com.fima.cardsui.views.CardUI;
+
+import de.keyboardsurfer.android.widget.crouton.Crouton;
+import de.keyboardsurfer.android.widget.crouton.Style;
 
 public class CardsDetailsActivity extends SherlockActivity {
 
@@ -45,8 +47,8 @@ public class CardsDetailsActivity extends SherlockActivity {
 		boolean firstDetails = getSharedPreferences("DETAILS_PREF",
 				MODE_PRIVATE).getBoolean("firstdetails", true);
 		if (firstDetails) {
-			Toast.makeText(this, "Click on the Contact to dial their number",
-					Toast.LENGTH_LONG).show();
+			Crouton.makeText(this, "Click on the Contact to dial their number",
+					Style.INFO).show();
 			getSharedPreferences("DETAILS_PREF", MODE_PRIVATE).edit()
 					.putBoolean("firstdetails", false).commit();
 		}
@@ -83,7 +85,7 @@ public class CardsDetailsActivity extends SherlockActivity {
 			// title card
 			mCardUI.addCard(new MyCard(titleText, descText));
 			// contact card
-			contactCard = new MyCard("Contact", contactText);
+			contactCard = new MyCard("Contact", contactText + "  " + contactNumber);
 			contactCard.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {

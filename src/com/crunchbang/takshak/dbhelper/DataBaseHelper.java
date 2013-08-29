@@ -28,8 +28,9 @@ public class DataBaseHelper extends DbHelper {
 				KEY_DEPARTMENT, KEY_PIC };
 		String where = null;
 		if (category == "event") {
-			where = KEY_CATEGORY + "=" + "'" + category + "'" + " AND "
-					+ KEY_DEPARTMENT + "=" + "'" + department + "'";
+/*			where = KEY_CATEGORY + "=" + "'" + category + "'" + " AND "
+					+ KEY_DEPARTMENT + "=" + "'" + department + "'"; */
+			where = KEY_DEPARTMENT + "=" + "'" + department + "'";
 		} else {
 			where = KEY_CATEGORY + "=" + "'" + category + "'";
 		}

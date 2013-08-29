@@ -6,10 +6,12 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.viewpagerindicator.TabPageIndicator;
+
+import de.keyboardsurfer.android.widget.crouton.Crouton;
+import de.keyboardsurfer.android.widget.crouton.Style;
 
 public class EventPagerActivity extends SherlockFragmentActivity {
 
@@ -22,8 +24,8 @@ public class EventPagerActivity extends SherlockFragmentActivity {
 		boolean firstdb = getSharedPreferences("DB_PREF", MODE_PRIVATE)
 				.getBoolean("firstdb", true);
 		if (firstdb) {
-			Toast.makeText(this, "Initializing Database",
-					Toast.LENGTH_LONG).show();
+			Crouton.makeText(this, "Initializing Database",
+					Style.ALERT).show();
 			getSharedPreferences("DB_PREF", MODE_PRIVATE).edit()
 					.putBoolean("firstdb", false).commit();
 		}

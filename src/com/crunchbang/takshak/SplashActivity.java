@@ -7,7 +7,7 @@ import android.os.Handler;
 
 public class SplashActivity extends Activity {
 	//splash screens are evil; I know -_-
-	private static int SPLASH_DURATION = 500;
+	private static int SPLASH_DURATION = 10;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {

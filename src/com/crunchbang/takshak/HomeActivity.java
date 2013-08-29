@@ -1,9 +1,6 @@
 package com.crunchbang.takshak;
 
 import android.content.Intent;
-import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -13,12 +10,17 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingActivity;
+import com.parse.Parse;
+import com.parse.ParseInstallation;
+import com.parse.PushService;
+
+import de.keyboardsurfer.android.widget.crouton.Crouton;
+import de.keyboardsurfer.android.widget.crouton.Style;
 
 public class HomeActivity extends SlidingActivity implements
 		OnItemClickListener {
@@ -47,19 +49,19 @@ public class HomeActivity extends SlidingActivity implements
 		mListView.setAdapter(new ColorAdapter());
 		mListView.setOnItemClickListener(this);
 
-		// Efficient bitmap loading from dev.android.com
-		ImageView mImageView = (ImageView) findViewById(R.id.imageView1);
-		mImageView.setImageBitmap(decodeSampledBitmapFromResource(
-				getResources(), R.drawable.college, 800, 800));
-
 		boolean firstboot = getSharedPreferences("BOOT_PREF", MODE_PRIVATE)
 				.getBoolean("firstboot", true);
 		if (firstboot) {
-			Toast.makeText(this, "Swipe left to right for details",
-					Toast.LENGTH_LONG).show();
+			Crouton.makeText(this, "Swipe left to right for details",
+					Style.INFO).show();
 			getSharedPreferences("BOOT_PREF", MODE_PRIVATE).edit()
 					.putBoolean("firstboot", false).commit();
 		}
+		
+		//Parse initialization
+		Parse.initialize(this, "GR1SGBch2t7Bc9tI0ELWrH9dOD5w8HkgE93ivm1H", "l9lPDWUQWBKrQJxWErogh0BaDd0jfZrOqS4xUdGY"); 
+		PushService.setDefaultPushCallback(this, HomeActivity.class);
+		ParseInstallation.getCurrentInstallation().saveInBackground();
 	}
 
 	@Override
@@ -67,22 +69,28 @@ public class HomeActivity extends SlidingActivity implements
 			long itemId) {
 		String item = (String) parent.getItemAtPosition(position);
 		Class<?> cls = null;
+		Bundle bundle = new Bundle();
 
 		if (item.equals(Constants.menuItems[0])) {
-			cls = AboutActivity.class;
+			cls = SocialAboutActivity.class;
+			bundle.putString(Constants.KEY, "about");
 		} else if (item.equals(Constants.menuItems[1])) {
-			cls = EventPagerActivity.class;
+			cls = SocialAboutActivity.class;
+			bundle.putString(Constants.KEY, "social");
 		} else if (item.equals(Constants.menuItems[2])) {
-			cls = ShowCaseActivity.class;
+			cls = EventPagerActivity.class;
 		} else if (item.equals(Constants.menuItems[3])) {
-			cls = LocationActivity.class;
+			cls = ShowCaseActivity.class;
 		} else if (item.equals(Constants.menuItems[4])) {
+			cls = LocationActivity.class;
+		} else if (item.equals(Constants.menuItems[5])) {
 			cls = NewsFeedActivity.class;
 		} else {
 			return;
 		}
 
 		Intent intent = new Intent(this, cls);
+		intent.putExtras(bundle);
 		startActivity(intent);
 	}
 
@@ -120,47 +128,5 @@ public class HomeActivity extends SlidingActivity implements
 		default:
 			return super.onOptionsItemSelected(item);
 		}
-	}
-
-	public static int calculateInSampleSize(BitmapFactory.Options options,
-			int reqWidth, int reqHeight) {
-		// Raw height and width of image
-		final int height = options.outHeight;
-		final int width = options.outWidth;
-		int inSampleSize = 1;
-
-		if (height > reqHeight || width > reqWidth) {
-
-			// Calculate ratios of height and width to requested height and
-			// width
-			final int heightRatio = Math.round((float) height
-					/ (float) reqHeight);
-			final int widthRatio = Math.round((float) width / (float) reqWidth);
-
-			// Choose the smallest ratio as inSampleSize value, this will
-			// guarantee
-			// a final image with both dimensions larger than or equal to the
-			// requested height and width.
-			inSampleSize = heightRatio < widthRatio ? heightRatio : widthRatio;
-		}
-
-		return inSampleSize;
-	}
-
-	public static Bitmap decodeSampledBitmapFromResource(Resources res,
-			int resId, int reqWidth, int reqHeight) {
-
-		// First decode with inJustDecodeBounds=true to check dimensions
-		final BitmapFactory.Options options = new BitmapFactory.Options();
-		options.inJustDecodeBounds = true;
-		BitmapFactory.decodeResource(res, resId, options);
-
-		// Calculate inSampleSize
-		options.inSampleSize = calculateInSampleSize(options, reqWidth,
-				reqHeight);
-
-		// Decode bitmap with inSampleSize set
-		options.inJustDecodeBounds = false;
-		return BitmapFactory.decodeResource(res, resId, options);
 	}
 }

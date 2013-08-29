@@ -24,6 +24,8 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.VIBRATE" />
     <!--
      The following two permissions are not required to use
      Google Maps Android API v2, but are recommended.
@@ -72,7 +74,7 @@
             android:label="@string/title_activity_news_feed" >
         </activity>
         <activity
-            android:name="com.crunchbang.takshak.AboutActivity"
+            android:name="com.crunchbang.takshak.SocialAboutActivity"
             android:label="@string/title_activity_about" >
         </activity>
         <activity
@@ -83,6 +85,15 @@
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyC3nw3sa2f0MUyCohM0RfggJYzI46RN7nE" />
+
+        <service android:name="com.parse.PushService" />
+
+        <receiver android:name="com.parse.ParseBroadcastReceiver" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.USER_PRESENT" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

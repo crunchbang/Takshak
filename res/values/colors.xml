@@ -7,4 +7,6 @@
     <color name="holoblue">#ff33b6ea</color>
     <color name="grey">#7c7c7c</color>
 
+    <drawable name="focused">#e00707</drawable>
+    <drawable name="selected">#4ac925</drawable>
 </resources>

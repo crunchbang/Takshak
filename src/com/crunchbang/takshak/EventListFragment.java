@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockListFragment;
 import com.crunchbang.takshak.cardview.CardsDetailsActivity;
@@ -47,7 +46,7 @@ public class EventListFragment extends SherlockListFragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View view = inflater.inflate(R.layout.fragment_list_details, container,
+		View view = inflater.inflate(R.layout.list_layout, container,
 				false);
 		return view;
 	}
@@ -59,7 +58,6 @@ public class EventListFragment extends SherlockListFragment {
 		Cursor itemCursor = (Cursor) getListAdapter().getItem(position);
 		String title = itemCursor.getString(itemCursor
 				.getColumnIndex(DataBaseHelper.KEY_TITLE));
-		Toast.makeText(getActivity(), title, Toast.LENGTH_SHORT).show();
 		Bundle args = new Bundle();
 		args.putString(CardsDetailsActivity.ITEM, title);
 

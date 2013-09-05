@@ -22,6 +22,7 @@ Dependencies
 * [Nine Old Androids](https://github.com/JakeWharton/NineOldAndroids)
 * [Android SQLiteAssetHelper](https://github.com/jgilfelt/android-sqlite-asset-helper)
 * [CardsUI](https://github.com/Androguide/cardsui-for-android)
+* [Parse SDK](https://www.parse.com)
 
 
 License

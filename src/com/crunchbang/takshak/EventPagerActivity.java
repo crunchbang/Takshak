@@ -15,6 +15,9 @@ import de.keyboardsurfer.android.widget.crouton.Style;
 
 public class EventPagerActivity extends SherlockFragmentActivity {
 
+	private static String[] eventListShort = { "CE", "CS", "EEE", "ECE", "MCA",
+			"ME" };
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -24,8 +27,7 @@ public class EventPagerActivity extends SherlockFragmentActivity {
 		boolean firstdb = getSharedPreferences("DB_PREF", MODE_PRIVATE)
 				.getBoolean("firstdb", true);
 		if (firstdb) {
-			Crouton.makeText(this, "Initializing Database",
-					Style.ALERT).show();
+			Crouton.makeText(this, "Initializing Database", Style.ALERT).show();
 			getSharedPreferences("DB_PREF", MODE_PRIVATE).edit()
 					.putBoolean("firstdb", false).commit();
 		}
@@ -45,18 +47,17 @@ public class EventPagerActivity extends SherlockFragmentActivity {
 
 		@Override
 		public Fragment getItem(int position) {
-			return EventListFragment
-					.newInstance(Constants.eventListShort[position]);
+			return EventListFragment.newInstance(eventListShort[position]);
 		}
 
 		@Override
 		public int getCount() {
-			return Constants.eventListShort.length;
+			return eventListShort.length;
 		}
 
 		@Override
 		public CharSequence getPageTitle(int position) {
-			return Constants.eventListShort[position];
+			return eventListShort[position];
 		}
 	}
 }

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.crunchbang.takshak"
-    android:versionCode="4"
-    android:versionName="1.3" >
+    android:versionCode="5"
+    android:versionName="2.0" >
 
     <uses-sdk
         android:minSdkVersion="8"
@@ -25,7 +25,6 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    <uses-permission android:name="android.permission.VIBRATE" />
     <!--
      The following two permissions are not required to use
      Google Maps Android API v2, but are recommended.
@@ -39,18 +38,14 @@
         android:label="@string/app_name"
         android:theme="@style/Theme.Sherlock.Light.DarkActionBar" >
         <activity
-            android:name="com.crunchbang.takshak.SplashActivity"
+            android:name="com.crunchbang.takshak.HomeActivity"
             android:label="@string/app_name"
-            android:theme="@style/Theme.Sherlock.Light.NoActionBar" >
+            android:theme="@style/Theme.Sherlock.Light.DarkActionBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity
-            android:name="com.crunchbang.takshak.HomeActivity"
-            android:label="@string/blank" >
         </activity>
         <activity
             android:name="com.crunchbang.takshak.EventPagerActivity"
@@ -66,34 +61,21 @@
             android:label="@string/title_activity_location" >
         </activity>
         <activity
-            android:name="com.crunchbang.takshak.cardview.CardsDetailsActivity"
+            android:name="com.crunchbang.takshak.DetailsActivity"
             android:label="@string/title_activity_cards_details" >
         </activity>
         <activity
-            android:name="com.crunchbang.takshak.NewsFeedActivity"
+            android:name="com.crunchbang.takshak.WebViewActivity"
             android:label="@string/title_activity_news_feed" >
         </activity>
         <activity
-            android:name="com.crunchbang.takshak.SocialAboutActivity"
+            android:name="com.crunchbang.takshak.SocialQuizActivity"
             android:label="@string/title_activity_about" >
-        </activity>
-        <activity
-            android:name="com.crunchbang.takshak.CreditsActivity"
-            android:label="@string/title_activity_credits" >
         </activity>
 
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyC3nw3sa2f0MUyCohM0RfggJYzI46RN7nE" />
-
-        <service android:name="com.parse.PushService" />
-
-        <receiver android:name="com.parse.ParseBroadcastReceiver" >
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-                <action android:name="android.intent.action.USER_PRESENT" />
-            </intent-filter>
-        </receiver>
     </application>
 
 </manifest>

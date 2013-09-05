@@ -7,7 +7,7 @@
         android:id="@android:id/list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#ffdedede"
+        android:background="@drawable/grey_background_pattern"
         android:divider="@android:color/transparent"
         android:dividerHeight="10.0sp"
         android:padding="10dip" />

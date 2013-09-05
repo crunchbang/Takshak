@@ -3,16 +3,17 @@ package com.crunchbang.takshak;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.CursorAdapter;
+import android.support.v4.widget.SimpleCursorAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.actionbarsherlock.app.SherlockListFragment;
-import com.crunchbang.takshak.cardview.CardsDetailsActivity;
 import com.crunchbang.takshak.dbhelper.DataBaseHelper;
 
 public class EventListFragment extends SherlockListFragment {
@@ -46,8 +47,7 @@ public class EventListFragment extends SherlockListFragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View view = inflater.inflate(R.layout.list_layout, container,
-				false);
+		View view = inflater.inflate(R.layout.list_layout, container, false);
 		return view;
 	}
 
@@ -59,9 +59,9 @@ public class EventListFragment extends SherlockListFragment {
 		String title = itemCursor.getString(itemCursor
 				.getColumnIndex(DataBaseHelper.KEY_TITLE));
 		Bundle args = new Bundle();
-		args.putString(CardsDetailsActivity.ITEM, title);
+		args.putString(DetailsActivity.ITEM, title);
 
-		Intent intent = new Intent(getActivity(), CardsDetailsActivity.class);
+		Intent intent = new Intent(getActivity(), DetailsActivity.class);
 		intent.putExtras(args);
 		startActivity(intent);
 	}
@@ -89,16 +89,17 @@ public class EventListFragment extends SherlockListFragment {
 			String[] from = new String[] { DataBaseHelper.KEY_TITLE,
 					DataBaseHelper.KEY_DESCRIPTION };
 			int[] to = new int[] { R.id.title, R.id.description };
-			/*
-			 * if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-			 * adapter = new XSimpleCursorAdapter(getActivity(),
-			 * R.layout.card_picture, c, from, to); } else { adapter = new
-			 * XSimpleCursorAdapter(getActivity(), R.layout.card_picture, c,
-			 * from, to); }
-			 */
-			ImageCursorAdapter adapter = new ImageCursorAdapter(getActivity(),
-					R.layout.card_picture, c, from, to);
-			setListAdapter(adapter);
+
+			if (Build.VERSION.SDK_INT > Build.VERSION_CODES.GINGERBREAD_MR1) {
+				ImageCursorAdapter adapter = new ImageCursorAdapter(
+						getActivity(), R.layout.card_picture, c, from, to);
+				setListAdapter(adapter);
+			} else {
+				SimpleCursorAdapter adapter = new SimpleCursorAdapter(
+						getActivity(), R.layout.card_ex, c, from, to, 0);
+				setListAdapter(adapter);
+			}
+
 		}
 	}
 }

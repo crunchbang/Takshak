@@ -3,13 +3,14 @@ package com.crunchbang.takshak;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.widget.CursorAdapter;
+import android.support.v4.widget.SimpleCursorAdapter;
 import android.view.View;
 import android.widget.ListView;
 
 import com.actionbarsherlock.app.SherlockListActivity;
-import com.crunchbang.takshak.cardview.CardsDetailsActivity;
 import com.crunchbang.takshak.dbhelper.DataBaseHelper;
 
 public class ShowCaseActivity extends SherlockListActivity {
@@ -33,9 +34,9 @@ public class ShowCaseActivity extends SherlockListActivity {
 		String title = itemCursor.getString(itemCursor
 				.getColumnIndex(DataBaseHelper.KEY_TITLE));
 		Bundle args = new Bundle();
-		args.putString(CardsDetailsActivity.ITEM, title);
+		args.putString(DetailsActivity.ITEM, title);
 
-		Intent intent = new Intent(this, CardsDetailsActivity.class);
+		Intent intent = new Intent(this, DetailsActivity.class);
 		intent.putExtras(args);
 		startActivity(intent);
 	}
@@ -60,18 +61,19 @@ public class ShowCaseActivity extends SherlockListActivity {
 		@Override
 		protected void onPostExecute(Void result) {
 			String[] from = { DataBaseHelper.KEY_TITLE,
-					DataBaseHelper.KEY_DEPARTMENT };
+					DataBaseHelper.KEY_DESCRIPTION};
 			int[] to = new int[] { R.id.title, R.id.description };
-			/*
-			 * if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-			 * adapter = new XSimpleCursorAdapter(getActivity(),
-			 * R.layout.card_picture, c, from, to); } else { adapter = new
-			 * XSimpleCursorAdapter(getActivity(), R.layout.card_picture, c,
-			 * from, to); }
-			 */
-			ImageCursorAdapter adapter = new ImageCursorAdapter(getApplicationContext(),
-					R.layout.card_picture, c, from, to);
-			setListAdapter(adapter);
+
+			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD_MR1) {
+				ImageCursorAdapter adapter = new ImageCursorAdapter(
+						getApplicationContext(), R.layout.card_picture, c,
+						from, to);
+				setListAdapter(adapter);
+			} else {
+				SimpleCursorAdapter adapter = new SimpleCursorAdapter(
+						getApplicationContext(), R.layout.card_ex, c, from, to, 0);
+				setListAdapter(adapter);
+			}
 		}
 	}
 }

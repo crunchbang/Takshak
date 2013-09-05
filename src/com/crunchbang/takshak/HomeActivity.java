@@ -1,23 +1,17 @@
 package com.crunchbang.takshak;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingActivity;
-import com.parse.Parse;
-import com.parse.ParseInstallation;
-import com.parse.PushService;
 
 import de.keyboardsurfer.android.widget.crouton.Crouton;
 import de.keyboardsurfer.android.widget.crouton.Style;
@@ -25,7 +19,9 @@ import de.keyboardsurfer.android.widget.crouton.Style;
 public class HomeActivity extends SlidingActivity implements
 		OnItemClickListener {
 
-	String[] mMenuList;
+	public final static String KEY = "com.crunchbang.takshak.key";
+	private static String[] menuItems = { "Nozione", "Social Initiative",
+			"Events", "Showcase", "Treasure Hunt", "News Feed" };
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -45,23 +41,15 @@ public class HomeActivity extends SlidingActivity implements
 		menu.setFadeDegree(0.35f);
 		// populate the menu
 		ListView mListView = (ListView) findViewById(R.id.menuListView);
-		mMenuList = Constants.menuItems;
-		mListView.setAdapter(new ColorAdapter());
+		ArrayAdapter<String> arrAdapter = new ArrayAdapter<String>(
+				HomeActivity.this, R.layout.slidingmenu_list_row,
+				R.id.listItem, menuItems);
+		mListView.setAdapter(arrAdapter);
 		mListView.setOnItemClickListener(this);
 
-		boolean firstboot = getSharedPreferences("BOOT_PREF", MODE_PRIVATE)
-				.getBoolean("firstboot", true);
-		if (firstboot) {
-			Crouton.makeText(this, "Swipe left to right for details",
-					Style.INFO).show();
-			getSharedPreferences("BOOT_PREF", MODE_PRIVATE).edit()
-					.putBoolean("firstboot", false).commit();
-		}
-		
-		//Parse initialization
-		Parse.initialize(this, "GR1SGBch2t7Bc9tI0ELWrH9dOD5w8HkgE93ivm1H", "l9lPDWUQWBKrQJxWErogh0BaDd0jfZrOqS4xUdGY"); 
-		PushService.setDefaultPushCallback(this, HomeActivity.class);
-		ParseInstallation.getCurrentInstallation().saveInBackground();
+		Crouton.makeText(this, "Swipe left to right for details", Style.INFO)
+				.show();
+
 	}
 
 	@Override
@@ -71,20 +59,22 @@ public class HomeActivity extends SlidingActivity implements
 		Class<?> cls = null;
 		Bundle bundle = new Bundle();
 
-		if (item.equals(Constants.menuItems[0])) {
-			cls = SocialAboutActivity.class;
-			bundle.putString(Constants.KEY, "about");
-		} else if (item.equals(Constants.menuItems[1])) {
-			cls = SocialAboutActivity.class;
-			bundle.putString(Constants.KEY, "social");
-		} else if (item.equals(Constants.menuItems[2])) {
+		if (item.equals(menuItems[0])) {
+			cls = SocialQuizActivity.class;
+			bundle.putString(KEY, "nozione");
+		} else if (item.equals(menuItems[1])) {
+			cls = SocialQuizActivity.class;
+			bundle.putString(KEY, "social");
+		} else if (item.equals(menuItems[2])) {
 			cls = EventPagerActivity.class;
-		} else if (item.equals(Constants.menuItems[3])) {
+		} else if (item.equals(menuItems[3])) {
 			cls = ShowCaseActivity.class;
-		} else if (item.equals(Constants.menuItems[4])) {
-			cls = LocationActivity.class;
-		} else if (item.equals(Constants.menuItems[5])) {
-			cls = NewsFeedActivity.class;
+		} else if (item.equals(menuItems[4])) {
+			cls = WebViewActivity.class;
+			bundle.putString(KEY, "treasure");
+		} else if (item.equals(menuItems[5])) {
+			cls = WebViewActivity.class;
+			bundle.putString(KEY, "news");
 		} else {
 			return;
 		}
@@ -92,23 +82,6 @@ public class HomeActivity extends SlidingActivity implements
 		Intent intent = new Intent(this, cls);
 		intent.putExtras(bundle);
 		startActivity(intent);
-	}
-
-	private class ColorAdapter extends ArrayAdapter<String> {
-
-		public ColorAdapter() {
-			super(HomeActivity.this, R.layout.slidingmenu_list_row,
-					R.id.listItem, mMenuList);
-		}
-
-		@Override
-		public View getView(int position, View convertView, ViewGroup parent) {
-			View row = super.getView(position, convertView, parent);
-			ImageView iv = (ImageView) row.findViewById(R.id.imageView1);
-			iv.setBackgroundColor(Color
-					.parseColor(Constants.menuColors[position]));
-			return row;
-		}
 	}
 
 	@Override
@@ -120,9 +93,23 @@ public class HomeActivity extends SlidingActivity implements
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
+		Bundle bundle = new Bundle();
+		Intent intent = null;
 		switch (item.getItemId()) {
-		case R.id.about:
-			Intent intent = new Intent(this, CreditsActivity.class);
+		case R.id.devs:
+			intent = new Intent(this, WebViewActivity.class);
+			bundle.putString(KEY, "devs");
+			intent.putExtras(bundle);
+			startActivity(intent);
+			return true;
+		case R.id.organizers:
+			intent = new Intent(this, WebViewActivity.class);
+			bundle.putString(KEY, "organizers");
+			intent.putExtras(bundle);
+			startActivity(intent);
+			return true;
+		case R.id.location:
+			intent = new Intent(this, LocationActivity.class);
 			startActivity(intent);
 			return true;
 		default:
